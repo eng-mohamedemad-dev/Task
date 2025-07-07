@@ -1,6 +1,5 @@
 <?php
 
-// app/Services/Chat/ChatService.php
 namespace App\Services;
 
 use App\Models\Product;

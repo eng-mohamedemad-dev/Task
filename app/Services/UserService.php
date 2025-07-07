@@ -1,6 +1,5 @@
 <?php
 
-// app/Services/AuthService.php
 namespace App\Services;
 
 use App\Repositories\UserRepository;

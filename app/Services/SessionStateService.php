@@ -1,6 +1,5 @@
 <?php
 
-// app/Services/SessionState/SessionStateService.php
 namespace App\Services;
 
 use App\Interfaces\SessionStateRepositoryInterface;

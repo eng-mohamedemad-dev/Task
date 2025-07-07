@@ -3,14 +3,17 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request ;
+use App\Traits\ApiResponseTrait;
+
 
 class RoleMiddleware
 {
+    use ApiResponseTrait;
     public function handle(Request $request, Closure $next, ...$roles)
     {
         if (!in_array($request->user()->role, $roles)) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+            return $this->errorResponse('Unauthorized', 403);
         }
 
         return $next($request);

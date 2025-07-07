@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/Api/SessionStateController.php
 namespace App\Http\Controllers;
 
 

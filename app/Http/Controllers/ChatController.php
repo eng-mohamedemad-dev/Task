@@ -1,7 +1,6 @@
 <?php
 
 
-// app/Http/Controllers/Api/ChatController.php
 namespace App\Http\Controllers;
 
 use App\Services\ChatService;
