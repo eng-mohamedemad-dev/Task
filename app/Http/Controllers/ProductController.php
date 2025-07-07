@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Services\ProductService;
-use App\Traits\ApiResponseTrait;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
-use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    use ApiResponseTrait;
 
-    public function __construct(protected ProductService $productService) {}
+    public function __construct(protected ProductService $productService) {
+        $this->middleware('role:merchant')->only(['store', 'update', 'destroy']);
+    }
 
     public function index()
     {
@@ -32,7 +31,7 @@ class ProductController extends Controller
         return $this->successResponse('Product created successfully', new ProductResource($product));
     }
 
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $updated_product = $this->productService->update($product, $request->validated());
         if ($updated_product) {

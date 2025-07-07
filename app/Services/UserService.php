@@ -1,37 +1,41 @@
 <?php
 
+// app/Services/AuthService.php
 namespace App\Services;
 
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
-use App\Interfaces\UserRepositoryInterface;
 
 class UserService
 {
-    public function __construct(protected UserRepositoryInterface $userRepository) {
-    }
+    public function __construct(private UserRepository $repo) {}
 
     public function register(array $data)
     {
-        $data['password'] = Hash::make($data['password']);
-        $user = $this->userRepository->create($data);
-        return $user ? true : false;
+        $data['role'] = $data['role'] ?? 'customer';
+        $user = $this->repo->create($data);
+        return $this->map($user);
     }
 
-    public function login(string $email, string $password)
+    public function login(array $credentials)
     {
-        $user = $this->userRepository->findByEmail($email);
-        if ($user && Hash::check($password, $user->password)) {
-            return $this->map($user);
+        $user = $this->repo->findByEmail($credentials['email']);
+
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+            return null;
         }
+
+        return $this->map($user);
     }
 
-    private function map($user)
-    {
-        $token = $user->createToken('api_token')->plainTextToken;
+    protected function map($user) {
+        $token = $user->createToken("auth_token")->plainTextToken;
         return [
+            'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'token' => $token,
+            'role' => $user->role,
+            'token' => $token
         ];
     }
 }

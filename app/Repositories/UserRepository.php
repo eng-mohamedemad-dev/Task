@@ -7,13 +7,14 @@ use App\Interfaces\UserRepositoryInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function findByEmail(string $email)
+    public function create(array $data): User
     {
-        return User::firstWhere('email', $email);
+        $data['password'] = bcrypt($data['password']);
+        return User::create($data);
     }
 
-    public function create(array $data)
+    public function findByEmail(string $email): ?User
     {
-        return User::create($data);
+        return User::firstWhere('email', $email);
     }
 }
