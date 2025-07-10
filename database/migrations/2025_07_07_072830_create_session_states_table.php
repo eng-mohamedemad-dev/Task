@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('interaction_history')->nullable();
             $table->foreignId('last_chosen_product_id')->nullable()->constrained('products')->nullOnDelete();
             $table->timestamp('last_interaction')->nullable();
+            $table->foreignId('user_id')->constrained('users', 'id')->cascadeOnDelete();
             $table->timestamps();
         });
 

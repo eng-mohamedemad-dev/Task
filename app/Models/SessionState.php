@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class SessionState extends Model
 {
-    protected $primaryKey = 'session_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $primaryKey = 'session_id';
 
     protected $fillable = [
         'session_id', 'restaurant_name', 'current_step', 'temp_product_name',
         'temp_quantity', 'last_chosen_product_id', 'interaction_history', 'last_interaction',
+        'user_id',
     ];
 
     protected $casts = [
@@ -28,6 +29,11 @@ class SessionState extends Model
     public function lastProduct()
     {
         return $this->belongsTo(Product::class, 'last_chosen_product_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
 

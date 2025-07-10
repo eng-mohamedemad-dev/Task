@@ -12,7 +12,7 @@ class RegisterRequest extends BaseRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'in:admin,vendor,customer'
+            'role' => 'required|in:admin,merchant,customer'
         ];
     }
 }

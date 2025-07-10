@@ -19,4 +19,19 @@ class SessionStateService
     {
         return $this->sessionRepo->createOrUpdate($data);
     }
+
+    public function all()
+    {
+        return $this->sessionRepo->all();
+    }
+
+    public function deleteBySessionId(string $sessionId)
+    {
+        return $this->sessionRepo->deleteBySessionId($sessionId);
+    }
+
+    public function updateBySessionId(string $sessionId, array $data)
+    {
+        return $this->sessionRepo->updateBySessionId($sessionId, $data);
+    }
 }

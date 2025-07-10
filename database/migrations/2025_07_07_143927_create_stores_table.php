@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->decimal('grand_total', 10, 2)->default(0.00);
-            $table->enum('status',['new','pending','completed','cancelled'])->default('pending');
+        Schema::create('stores', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
             $table->foreignId('user_id')->constrained('users','id')->cascadeOnDelete();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('stores');
     }
 };

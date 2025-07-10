@@ -6,20 +6,23 @@ namespace App\Http\Controllers;
 use App\Services\ChatService;
 use App\Http\Requests\ChatRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ChatResponseResource;
 
 class ChatController extends Controller
 {
-    public function __construct(protected ChatService $chatService)
+    protected ChatService $chatService;
+
+    public function __construct(ChatService $chatService)
     {
+        $this->chatService = $chatService;
     }
 
-    public function handle(ChatRequest $request)
+    public function store(ChatRequest $request)
     {
-        $response = $this->chatService->handleMessage(
-            $request->session_id,
-            $request->text
+        $data = $this->chatService->handleMessage(
+           $request->validated()['session_id'],
+           $request->validated()['text']
         );
-        return $this->successResponse('Chat response', new ChatResponseResource($response));
+
+        return response()->json($data);
     }
 }
