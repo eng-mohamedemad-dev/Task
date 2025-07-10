@@ -22,3 +22,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/app/Interfaces/ChatRepositoryInterface.php
+/app/Repositories/ChatRepository.php
+/app/Http/Controllers/ChatController.php
+/app/Services/ChatService.php
+/app/Models/Chat.php
