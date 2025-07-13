@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return $this->successResponse('Product fetched successfully', new ProductResource($product->load('user')));
+        return $this->successResponse('Product fetched successfully', new ProductResource($product->load('user', 'store')));
     }
 
     public function store(ProductRequest $request)
@@ -35,7 +35,7 @@ class ProductController extends Controller
     {
         $updated_product = $this->productService->update($product, $request->validated());
         if ($updated_product) {
-            return $this->successResponse('Product updated successfully', new ProductResource($updated_product->load('user')));
+            return $this->successResponse('Product updated successfully', new ProductResource($updated_product->load('user', 'store')));
         }
         return $this->errorResponse('You do not have permission to update this product', 403);
     }

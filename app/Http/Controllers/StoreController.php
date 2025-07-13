@@ -26,12 +26,12 @@ class StoreController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->id();
         $store = $this->storeService->create($data);
-        return $this->successResponse('Store created successfully', new StoreResource($store->load('merchant')));
+        return $this->successResponse('Store created successfully', new StoreResource($store->load('merchant', 'products')));
     }
 
     public function show(Store $store)
     {
-        return $this->successResponse('Store fetched successfully', new StoreResource($store));
+        return $this->successResponse('Store fetched successfully', new StoreResource($store->load('merchant', 'products')));
     }
 
     public function update(StoreRequest $request, Store $store)

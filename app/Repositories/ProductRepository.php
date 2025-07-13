@@ -9,7 +9,7 @@ class ProductRepository implements ProductRepositoryInterface
 {
     public function all()
     {
-        return Product::with('user')->get();
+        return Product::with('user', 'store')->get();
     }
     public function create(array $data)
     {

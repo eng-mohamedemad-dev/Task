@@ -37,6 +37,6 @@ class StoreRepository implements StoreRepositoryInterface
 
     public function all()
     {
-        return Store::all();
+        return Store::with('merchant', 'products')->get();
     }
 }

@@ -21,6 +21,10 @@ class ProductResource extends JsonResource
             'description' => $this->description ?? 'No description',
             'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
             'user_name' => $this->user->name ?? 'No user',
+            'store' => $this->store ? [
+                'id' => $this->store->id,
+                'name' => $this->store->name,
+            ] : null,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }

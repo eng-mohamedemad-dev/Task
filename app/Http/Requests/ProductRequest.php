@@ -12,6 +12,7 @@ class ProductRequest extends BaseRequest
                 'price' => 'sometimes|required|numeric|min:0',
                 'description' => 'sometimes|nullable|string',
                 'image_url' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'store_id' => "required|exists:stores,id",
             ];
         }
         return [
@@ -19,6 +20,7 @@ class ProductRequest extends BaseRequest
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            "store_id" => "required|exists:stores,id",
         ];
     }
 }

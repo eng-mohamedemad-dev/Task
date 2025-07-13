@@ -11,4 +11,8 @@ class Store extends Model
     public function merchant() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 }
