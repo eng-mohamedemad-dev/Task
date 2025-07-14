@@ -5,11 +5,12 @@ namespace App\Repositories;
 use App\Models\Product;
 use App\Interfaces\ProductRepositoryInterface;
 
+
 class ProductRepository implements ProductRepositoryInterface
 {
     public function all()
     {
-        return Product::with('user', 'store')->get();
+        return Product::with('user', 'store')->where('user_id',auth()->id())->get();
     }
     public function create(array $data)
     {

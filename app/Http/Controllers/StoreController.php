@@ -6,6 +6,7 @@ use App\Models\Store;
 use App\Services\StoreService;
 use App\Http\Requests\StoreRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\StoreResource;
 
 class StoreController extends Controller
@@ -50,5 +51,11 @@ class StoreController extends Controller
             return $this->errorResponse('You are not authorized to delete this store', 403);
         }
         return $this->successResponse('Store deleted successfully');
+    }
+
+    public function getProducts(Store $store)
+    {
+        $products = $store->products()->with('store')->get();
+        return $this->successResponse('Products fetched successfully', ProductResource::collection($products));
     }
 }

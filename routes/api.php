@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/orders', OrderController::class);
     Route::apiResource('/products', ProductController::class);
     Route::apiResource('/stores', StoreController::class);
+    Route::get('StoreProducts/{store}', [StoreController::class, 'getProducts']);
 });
 
 
