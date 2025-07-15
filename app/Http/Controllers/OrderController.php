@@ -7,13 +7,13 @@ use App\Services\OrderService;
 use App\Http\Requests\OrderRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
-use App\Http\Requests\OrderStatusRequest;
+use App\Http\Requests\UpdateOrderStRequest;
 
 class OrderController extends Controller
 {
     public function __construct(protected OrderService $orderService)
     {
-        $this->middleware('role:admin')->only(['update']);
+
     }
 
     public function index()
@@ -33,24 +33,26 @@ class OrderController extends Controller
         $return_order = $this->orderService->show($order);
 
         if (!$return_order) {
-            return $this->errorResponse('Order not found or not authorized', 404);
+            return $this->errorResponse('authorized', 404);
         }
         return $this->successResponse('Order fetched successfully', new OrderResource($return_order));
     }
 
-    public function update(OrderStatusRequest $request, Order $order)
+    public function update(UpdateOrderStRequest $request, Order $order)
     {
-        $status = $request->validated()['status'];
-        $updatedOrder = $this->orderService->updateOrderStatus($order, $status);
-        return $this->successResponse('Order status updated successfully', new OrderResource($updatedOrder));
+        if ($order->user_id !== auth()->id()) {
+            return $this->errorResponse('authorized', 404);
+        }
+        $updatedOrder = $this->orderService->updateOrder($order, $request->validated());
+        return $this->successResponse('Order updated successfully', new OrderResource($updatedOrder));
     }
 
     public function destroy(Order $order)
     {
-        $return_order = $this->orderService->delete($order);
-        if (!$return_order) {
+        if ($order->user_id !== auth()->id()) {
             return $this->errorResponse('Order not found or not authorized', 404);
         }
+        $return_order = $this->orderService->delete($order);
         return $this->successResponse('Order deleted successfully');
     }
 

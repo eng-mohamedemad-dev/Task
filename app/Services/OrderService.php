@@ -34,6 +34,7 @@ class OrderService
 
         $finalData = [
             'user_id' => auth()->id(),
+            'session_state' => $data['session_state'],
             'grand_total' => $grandTotal,
             'items' => $items,
         ];
@@ -57,8 +58,9 @@ class OrderService
         return $this->orderRepo->getAllOrders();
     }
 
-    public function updateOrderStatus($order, string $status)
+    public function updateOrder($order, array $data)
     {
-        return $this->orderRepo->updateOrderStatus($order, $status);
+        $order = $this->orderRepo->updateOrder($order, $data);
+        return $order;
     }
 }

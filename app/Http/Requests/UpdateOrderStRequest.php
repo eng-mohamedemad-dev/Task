@@ -3,11 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\BaseRequest;
-
-class OrderRequest extends BaseRequest
+class UpdateOrderStRequest extends BaseRequest
 {
-
-    public function rules(): array
+    public function rules()
     {
         return [
             'items' => 'required|array|min:1',
@@ -16,4 +14,5 @@ class OrderRequest extends BaseRequest
             'session_state' => 'required|string|max:100',
         ];
     }
+
 }

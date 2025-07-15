@@ -8,6 +8,6 @@ interface OrderRepositoryInterface
     public function showOrder($order);
     public function deleteOrder($order);
     public function getAllOrders();
-    public function updateOrderStatus($order, string $status);
+    public function updateOrder($order, array $data);
 }
 

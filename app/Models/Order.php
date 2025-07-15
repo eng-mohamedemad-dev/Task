@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class Order extends Model
 {
     use HasUuids;
-    protected $fillable = ['grand_total', 'status','user_id'];
+    protected $fillable = ['grand_total', 'status','user_id','session_state'];
     public $incrementing = false;
     protected $keyType = 'string';
 

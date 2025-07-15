@@ -32,6 +32,9 @@ class StoreController extends Controller
 
     public function show(Store $store)
     {
+        if ($store->user_id !== auth()->id()) {
+            return $this->errorResponse('You are not authorized to view this store', 403);
+        }
         return $this->successResponse('Store fetched successfully', new StoreResource($store->load('merchant', 'products')));
     }
 
