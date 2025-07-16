@@ -37,6 +37,7 @@ class OrderService
             'session_state' => $data['session_state'],
             'grand_total' => $grandTotal,
             'items' => $items,
+            'description' => $data['description'] ?? '',
         ];
 
         return $this->orderRepo->createOrder($finalData);

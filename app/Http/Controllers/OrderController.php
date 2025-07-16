@@ -24,6 +24,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
+        
         $order = $this->orderService->store($request->validated());
         return $this->successResponse('Order created successfully', new OrderResource($order));
     }
@@ -40,6 +41,7 @@ class OrderController extends Controller
 
     public function update(UpdateOrderStRequest $request, Order $order)
     {
+        
         if ($order->user_id !== auth()->id()) {
             return $this->errorResponse('authorized', 404);
         }

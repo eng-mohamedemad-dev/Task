@@ -45,13 +45,13 @@ class OrderRepository implements OrderRepositoryInterface
         return Order::where('user_id', $userId)->with('items')->get();
     }
 
-    public function updateOrder($order, array $data)
-    {
-        return DB::transaction(function () use ($order, $data) {
-            $order = Order::findOrFail($order->id);
+ public function updateOrder($order, array $data)
+{
+    return DB::transaction(function () use ($order, $data) {
+        $order = Order::findOrFail($order->id);
+        $grandTotal = 0;
+        if (isset($data['items']) && is_array($data['items']) && count($data['items']) > 0) {
             $order->items()->delete();
-            $items = [];
-            $grandTotal = 0;
             foreach ($data['items'] as $itemData) {
                 $product = \App\Models\Product::findOrFail($itemData['product_id']);
                 $totalPrice = $product->price * $itemData['quantity'];
@@ -66,9 +66,16 @@ class OrderRepository implements OrderRepositoryInterface
                 $grandTotal += $totalPrice;
             }
             $order->grand_total = $grandTotal;
+        }
+        if (isset($data['session_state'])) {
             $order->session_state = $data['session_state'];
-            $order->save();
-            return $order->load('items');
-        });
-    }
+        }
+        if (isset($data['description'])) {
+            $order->description = $data['description'];
+        }
+        $order->save();
+        return $order->load('items');
+    });
+}
+
 }

@@ -14,6 +14,7 @@ class OrderRequest extends BaseRequest
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
             'session_state' => 'required|string|max:100',
+            'description' => 'sometimes|required|string|max:255',
         ];
     }
 }
