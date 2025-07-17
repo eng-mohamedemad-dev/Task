@@ -15,7 +15,7 @@ class OrderService
     {
         $items = [];
         $grandTotal = 0;
-
+        if (isset($data['items'])) {
         foreach ($data['items'] as $itemData) {
             $product = Product::findOrFail($itemData['product_id']);
 
@@ -29,7 +29,8 @@ class OrderService
                 'total_price' => $totalPrice,
             ];
 
-            $grandTotal += $totalPrice;
+                $grandTotal += $totalPrice;
+            }
         }
 
         $finalData = [

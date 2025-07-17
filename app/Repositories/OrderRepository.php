@@ -13,10 +13,11 @@ class OrderRepository implements OrderRepositoryInterface
     {
         return DB::transaction(function () use ($data) {
             $order = Order::create($data);
-            foreach ($data['items'] as $item) {
-                $order->items()->create($item);
+            if (isset($data['items'])) {
+                foreach ($data['items'] as $item) {
+                    $order->items()->create($item);
+                }
             }
-
             return $order->load('items');
         });
     }
