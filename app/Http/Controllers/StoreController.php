@@ -6,14 +6,15 @@ use App\Models\Store;
 use App\Services\StoreService;
 use App\Http\Requests\StoreRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
 use App\Http\Resources\StoreResource;
+use App\Http\Resources\ProductResource;
 
 class StoreController extends Controller
 {
     public function __construct(protected StoreService $storeService)
     {
         $this->middleware('role:merchant')->only(['store', 'update', 'destroy']);
+        $this->middleware('auth:sanctum')->except('show');
     }
 
     public function index()
@@ -32,9 +33,6 @@ class StoreController extends Controller
 
     public function show(Store $store)
     {
-        if ($store->user_id !== auth()->id()) {
-            return $this->errorResponse('You are not authorized to view this store', 403);
-        }
         return $this->successResponse('Store fetched successfully', new StoreResource($store->load('merchant', 'products')));
     }
 

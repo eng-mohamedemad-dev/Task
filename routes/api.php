@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use App\Http\Resources\StoreResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
@@ -23,9 +25,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('role:admin')->apiResource('/sessions', SessionStateController::class);
     Route::apiResource('/orders', OrderController::class);
     Route::apiResource('/products', ProductController::class);
-    Route::apiResource('/stores', StoreController::class);
     Route::get('StoreProducts/{store}', [StoreController::class, 'getProducts']);
 });
-
+Route::apiResource('/stores', StoreController::class);
 
 
