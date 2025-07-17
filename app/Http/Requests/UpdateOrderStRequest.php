@@ -13,6 +13,7 @@ class UpdateOrderStRequest extends BaseRequest
         'items.*.quantity' => 'required_with:items.*|integer|min:1',
         'description' => 'sometimes|required|string|max:255',
         'session_state' => 'sometimes|string|max:100',
+        'store_id' => 'sometimes|required|exists:stores,id',
         ];
     }
 

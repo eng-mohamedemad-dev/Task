@@ -17,6 +17,7 @@ class OrderResource extends JsonResource
             'status' => $this->status,
             'session_state' => $this->session_state,
             'description' => $this->description,
+            'store_id' => $this->store_id,
             'created_at' => $this->created_at->toDateTimeString(),
         ];
     }

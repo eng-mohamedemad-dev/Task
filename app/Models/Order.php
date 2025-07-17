@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 class Order extends Model
 {
     use HasUuids;
-    protected $fillable = ['grand_total', 'status','user_id','session_state','description'];
+    protected $fillable = ['grand_total', 'status','user_id','session_state','description','store_id'];
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -15,6 +15,11 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
     }
 
 }

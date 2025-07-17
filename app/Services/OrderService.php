@@ -38,6 +38,7 @@ class OrderService
             'grand_total' => $grandTotal,
             'items' => $items,
             'description' => $data['description'] ?? '',
+            'store_id' => $data['store_id'],
         ];
 
         return $this->orderRepo->createOrder($finalData);

@@ -73,6 +73,9 @@ class OrderRepository implements OrderRepositoryInterface
         if (isset($data['description'])) {
             $order->description = $data['description'];
         }
+        if (isset($data['store_id'])) {
+            $order->store_id = $data['store_id'];
+        }
         $order->save();
         return $order->load('items');
     });
