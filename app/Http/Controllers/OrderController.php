@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function __construct(protected OrderService $orderService)
     {
-
+        $this->middleware('auth:sanctum')->except(['store', 'show','update']);
     }
 
     public function index()

@@ -23,10 +23,10 @@ Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logou
 // Route::post('/chat', [ChatController::class, 'handle']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('role:admin')->apiResource('/sessions', SessionStateController::class);
-    Route::apiResource('/orders', OrderController::class);
     Route::apiResource('/products', ProductController::class);
     Route::get('StoreProducts/{store}', [StoreController::class, 'getProducts']);
 });
+Route::apiResource('/orders', OrderController::class);
 Route::apiResource('/stores', StoreController::class);
 
 
