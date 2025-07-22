@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function __construct(protected OrderService $orderService)
     {
-        $this->middleware('auth:sanctum')->except(['store', 'show','update']);
+        $this->middleware('auth:sanctum')->except(['store','show','update','index']);
     }
 
     public function index()
@@ -42,7 +42,7 @@ class OrderController extends Controller
     public function update(UpdateOrderStRequest $request, Order $order)
     {
         
-        if ($order->user_id !== auth()->id()) {
+        if ($order->user_id !== $order->user_id) {
             return $this->errorResponse('authorized', 404);
         }
         $updatedOrder = $this->orderService->updateOrder($order, $request->validated());

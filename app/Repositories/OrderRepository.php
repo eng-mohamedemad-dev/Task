@@ -6,11 +6,14 @@ namespace App\Repositories;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\OrderRepositoryInterface;
+use App\Models\Store;
 
 class OrderRepository implements OrderRepositoryInterface
 {
     public function createOrder(array $data)
     {
+        $data['user_id'] = Store::with('merchant')->find($data['store_id'])->merchant->id;
+        $data['status'] = 'pending';
         return DB::transaction(function () use ($data) {
             $order = Order::create($data);
             if (isset($data['items'])) {
@@ -24,7 +27,8 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function showOrder($order)
     {
-        $userId = auth()->id();
+        $userId = Store::with('merchant')->find($order->store_id)->merchant->id;
+        dd($userId);
         return Order::with('items')->where([
             ['user_id', $userId],
             ['id', $order->id]
@@ -33,7 +37,8 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function deleteOrder($order)
     {
-        $userId = auth()->id();
+        $store =Store::with('merchant')->where('id',$order->store_id)->first();
+        $userId= $store->merchant->id;
         $order = Order::where('id', $order->id)->where('user_id', $userId)->first();
         if ($order) {
             return $order->delete();
@@ -42,14 +47,12 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getAllOrders()
     {
-        $userId = auth()->id();
-        return Order::where('user_id', $userId)->with('items')->get();
+        return Order::with('items')->get();
     }
 
  public function updateOrder($order, array $data)
 {
     return DB::transaction(function () use ($order, $data) {
-        $order = Order::findOrFail($order->id);
         $grandTotal = 0;
         if (isset($data['items']) && is_array($data['items']) && count($data['items']) > 0) {
             $order->items()->delete();
