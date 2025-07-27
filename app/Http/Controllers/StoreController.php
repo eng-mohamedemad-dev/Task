@@ -14,7 +14,7 @@ class StoreController extends Controller
     public function __construct(protected StoreService $storeService)
     {
         $this->middleware('role:merchant')->only(['store', 'update', 'destroy']);
-        $this->middleware('auth:sanctum')->except('show');
+        $this->middleware('auth:sanctum')->except('show','getStoreByCharacterId');
     }
 
     public function index()
