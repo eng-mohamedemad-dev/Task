@@ -16,6 +16,7 @@ class StoreResource extends JsonResource
             return [
                 'store_id' => $this->id,
                 'store_name' => $this->name,
+                'character_id' => $this->character_id,
             'products'=>
             $this->products->map(function ($product) {
                 return [
@@ -32,6 +33,7 @@ class StoreResource extends JsonResource
         return [
             'store_id' => $this->id,
             'store_name' => $this->name,
+            'character_id' => $this->character_id,
             'merchant' => [
                 'name' => $this->merchant->name ?? null,
                 'email' => $this->merchant->email ?? null,

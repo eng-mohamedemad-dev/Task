@@ -10,7 +10,7 @@ class Store extends Model
     use HasUuids;
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['name', 'user_id'];
+    protected $fillable = ['name', 'user_id', 'character_id'];
 
     public function merchant() {
         return $this->belongsTo(User::class, 'user_id');

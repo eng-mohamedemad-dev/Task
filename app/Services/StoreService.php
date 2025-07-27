@@ -34,4 +34,9 @@ class StoreService
     {
         return $this->storeRepo->all();
     }
+
+    public function getStoreByCharacterId($character_id)
+    {
+        return $this->storeRepo->getStoreByCharacterId($character_id);
+    }
 }

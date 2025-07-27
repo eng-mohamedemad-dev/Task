@@ -9,4 +9,5 @@ interface StoreRepositoryInterface
     public function delete($store);
     public function find($id);
     public function all();
+    public function getStoreByCharacterId($character_id);
 }

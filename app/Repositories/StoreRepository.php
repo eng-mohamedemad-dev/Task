@@ -39,4 +39,9 @@ class StoreRepository implements StoreRepositoryInterface
     {
         return Store::with('merchant', 'products')->where('user_id',auth()->id())->get();
     }
+
+    public function getStoreByCharacterId($character_id)
+    {
+        return Store::with('products')->where('character_id', $character_id)->get();
+    }
 }

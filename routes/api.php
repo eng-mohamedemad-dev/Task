@@ -27,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('StoreProducts/{store}', [StoreController::class, 'getProducts']);
 });
 Route::apiResource('/orders', OrderController::class);
+Route::get('stores/{character_id}', [StoreController::class, 'getStoreByCharacterId']);
 Route::apiResource('/stores', StoreController::class);
 
 

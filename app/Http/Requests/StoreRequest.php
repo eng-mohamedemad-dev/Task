@@ -16,10 +16,12 @@ class StoreRequest extends BaseRequest
         if ($this->isMethod('put')) {
             return [
                 'name' => 'required|string|unique:stores,name,' . $this->route('store')->id,
+                'character_id' => 'sometimes|required|string',
             ];
         }
         return [
             'name' => 'required|string|unique:stores,name',
+            'character_id' => 'sometimes|required|string',
         ];
     }
 
