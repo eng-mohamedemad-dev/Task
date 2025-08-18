@@ -25,6 +25,10 @@ class StoreResource extends JsonResource
                     'price' => $product->price,
                     'description' => $product->description ?? 'No description',
                     'image_url' => $product->image_url ? asset('storage/' . $product->image_url) : null,
+                    'category' => $product->category ? [
+                        'id' => $product->category->id,
+                        'name' => $product->category->name,
+                    ] : null,
                     'created_at' => $product->created_at->diffForHumans(),
                 ];
             })
@@ -46,6 +50,10 @@ class StoreResource extends JsonResource
                         'price' => $product->price,
                         'description' => $product->description ?? 'No description',
                         'image_url' => $product->image_url ? asset('storage/' . $product->image_url) : null,
+                        'category' => $product->category ? [
+                            'id' => $product->category->id,
+                            'name' => $product->category->name,
+                        ] : null,
                         'created_at' => $product->created_at->diffForHumans(),
                     ];
                 })

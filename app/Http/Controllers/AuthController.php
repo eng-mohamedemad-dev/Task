@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $result = $this->authService->register($request->validated());
-
+    
         return $this->successResponse('User registered successfully', $result);
     }
 

@@ -28,7 +28,6 @@ class OrderRepository implements OrderRepositoryInterface
     public function showOrder($order)
     {
         $userId = Store::with('merchant')->find($order->store_id)->merchant->id;
-        dd($userId);
         return Order::with('items')->where([
             ['user_id', $userId],
             ['id', $order->id]

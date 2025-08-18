@@ -9,7 +9,6 @@ use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
-
     public function __construct(protected ProductService $productService) {
         $this->middleware('role:merchant')->only(['store', 'update', 'destroy']);
     }
@@ -22,7 +21,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        return $this->successResponse('Product fetched successfully', new ProductResource($product->load('user', 'store')));
+        return $this->successResponse('Product fetched successfully', new ProductResource($product->load('user', 'store','category')));
     }
 
     public function store(ProductRequest $request)
